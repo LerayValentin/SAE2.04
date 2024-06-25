@@ -1,0 +1,52 @@
+{% extends "mqtt/templates.html" %}
+
+{% block title %}Données{% endblock %}
+
+{% block content %}
+<script>
+    // Fonction pour recharger la page toutes les 5 secondes
+    function autoRefresh() {
+        setTimeout(function() {
+            location.reload();
+        }, 3000); // 3 secondes
+    }
+
+    // Appeler la fonction autoRefresh quand la page est complètement chargée
+    window.onload = autoRefresh;
+</script>    
+
+<h1>Données</h1>
+    
+
+    <form method="get">
+        {{ form.as_p }}
+        <button type="submit">Filtrer</button>
+    </form>
+
+    {% if donnees.exists %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Capteur</th>
+                    <th>Pièce</th>
+                    <th>Emplacement</th>
+                    <th>Heure</th>
+                    <th>Valeur</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for donnee in donnees %}
+                    <tr>
+                        <td>{{ donnee.capteurID.nom }}</td>
+                        <td>{{ donnee.capteurID.piece }}</td>
+                        <td>{{ donnee.capteurID.emplacement }}</td>
+                        <td>{{ donnee.timestamp }}</td>
+                        <td>{{ donnee.valeur }} °C</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Aucune donnée ne correspond aux critères de filtrage.</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,17 @@
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+User=rias
+Group=www-data
+WorkingDirectory=/SAE2.05/sae_integratif
+ExecStart=/SAE2.05/venv/bin/gunicorn \
+          --access-logfile - \
+          --workers 3 \
+          --bind unix:/run/gunicorn.sock \
+          sae_integratif.wsgi:application
+
+[Install]
+WantedBy=multi-user.target

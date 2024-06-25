@@ -1,0 +1,47 @@
+{% extends "mqtt/templates.html" %}
+
+{% block title %}Données{% endblock %}
+
+{% block content %}
+
+<script>
+    // Fonction pour recharger la page toutes les 5 secondes
+    function autoRefresh() {
+        setTimeout(function() {
+            location.reload();
+        }, 3000); // 3 secondes
+    }
+
+    // Appeler la fonction autoRefresh quand la page est complètement chargée
+    window.onload = autoRefresh;
+</script>
+
+    <h1>Données</h1>
+    <form action="{% url 'export_csv' %}" method="get">
+        <button type="submit">Exporter en CSV</button>
+    </form>
+    <div class="actions_cell"><a href="/filtre/" class="view">Filtrer</a></div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Capteur</th>
+                <th>Pièce</th>
+                <th>Emplacement</th>
+                <th>Heure</th>
+                <th>Valeur</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for donnee in donnees %}
+                <tr>
+                    <td>{{ donnee.capteurID.nom }}</td>
+                    <td>{{ donnee.capteurID.piece }}</td>
+                    <td>{{ donnee.capteurID.emplacement }}</td>
+                    <td>{{ donnee.timestamp }}</td>
+                    <td>{{ donnee.valeur }} °C</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

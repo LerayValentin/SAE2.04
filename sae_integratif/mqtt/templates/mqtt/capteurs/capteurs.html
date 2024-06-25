@@ -1,0 +1,31 @@
+{% extends "mqtt/templates.html" %}
+
+{% block title %}Capteurs{% endblock %}
+
+{% block content %}
+    <h1>Capteurs</h1>
+    <table class="table ">
+            <thead>
+                <tr>
+                    <th>Capteur</th>
+                    <th>Pièce</th>
+                    <th>Emplacement</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for capteur in capteurs %}
+                    <tr>
+                        <td>{{ capteur.nom }}</td>
+                        <td>{{ capteur.piece }}</td>
+                        <td>{{ capteur.emplacement }}</td>
+                        <td class="actions_cell">
+                            <a href="/capteurs/show_capteur/{{ capteur.id }}" class="view">View</a>
+                            <a href="/capteurs/update_capteur/{{ capteur.id }}" class="update">Edit</a>
+                            <a href="/capteurs/delete_capteur/{{ capteur.id }}" class="delete">Remove</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}

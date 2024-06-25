@@ -1,0 +1,12 @@
+{% extends "mqtt/templates.html" %}
+{% block title %}Edit Capteur {% endblock %}
+
+{% block content %}
+<h1>Edit capteur {{capteur.nom}}</h1>
+
+<form method="post" action="/capteurs/processing_update_capteur/{{capteur.id}}/">
+    {% csrf_token %}
+    {{ form.as_ul }}
+    <input type="submit" value="Update"/>
+</form>
+{% endblock %}
